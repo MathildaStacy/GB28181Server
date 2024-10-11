@@ -45,7 +45,7 @@ target_include_directories(my_app PRIVATE
 )
 
 # 确保 my_app 在 pjsip 安装后才进行构建
-add_dependencies(my_app pjsip)
+add_dependencies(my_app pjsip jrtplib-static jthread-static)
 
 # 包含和链接 pjsip 库
 target_link_directories(my_app PRIVATE ${PJSIP_INSTALL_DIR}/lib)
@@ -54,8 +54,8 @@ target_link_directories(my_app PRIVATE ${PJSIP_INSTALL_DIR}/lib)
 target_link_libraries(my_app PRIVATE
     gflags
     glog
-    ${CMAKE_BINARY_DIR}/external/jrtplib3/src/libjrtp.a
-    ${CMAKE_BINARY_DIR}/external/jthread/src/libjthread.a
+    jrtplib-static
+    jthread-static
     ${PJSIP_INSTALL_DIR}/lib/libpjsua-x86_64-unknown-linux-gnu.a
     ${PJSIP_INSTALL_DIR}/lib/libpjsip-ua-x86_64-unknown-linux-gnu.a
     ${PJSIP_INSTALL_DIR}/lib/libpjsip-simple-x86_64-unknown-linux-gnu.a
