@@ -10,3 +10,9 @@
 [submodule "external/pjsip"]
 	path = external/pjsip
 	url = https://github.com/pjsip/pjproject.git
+[submodule "external/jrtplib3"]
+	path = external/jrtplib3
+	url = https://github.com/j0r1/JRTPLIB.git
+[submodule "external/jthread"]
+	path = external/jthread
+	url = https://github.com/j0r1/JThread.git
