@@ -4,3 +4,9 @@
 [submodule "external/glog"]
 	path = external/glog
 	url = https://github.com/google/glog.git
+[submodule "build/external/pjsip"]
+	path = build/external/pjsip
+	url = https://github.com/pjsip/pjproject.git
+[submodule "external/pjsip"]
+	path = external/pjsip
+	url = https://github.com/pjsip/pjproject.git
