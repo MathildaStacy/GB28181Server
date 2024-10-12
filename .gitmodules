@@ -22,3 +22,9 @@
 [submodule "external/jsoncpp"]
 	path = external/jsoncpp
 	url = https://github.com/open-source-parsers/jsoncpp.git
+[submodule "build/external/libevent"]
+	path = build/external/libevent
+	url = https://github.com/libevent/libevent.git
+[submodule "external/libevent"]
+	path = external/libevent
+	url = https://github.com/libevent/libevent.git

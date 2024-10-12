@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 3.10)
 project(MyProject)
 
@@ -11,6 +10,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # 显示编译时间
 set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
 set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CMAKE_COMMAND} -E time")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-result")
+
 
 # 添加 gflags 和 glog
 add_subdirectory(external/gflags)
@@ -23,6 +24,9 @@ add_subdirectory(external/jthread)
 # 添加 tinyxml2 和 jsoncpp
 add_subdirectory(external/tinyxml2)
 add_subdirectory(external/jsoncpp)
+
+# 添加 libevent
+add_subdirectory(external/libevent)
 
 # 安装路径
 set(PJSIP_INSTALL_DIR ${CMAKE_SOURCE_DIR}/install)
@@ -46,6 +50,7 @@ target_include_directories(my_app PRIVATE
     ${CMAKE_SOURCE_DIR}/external/jthread/src
     ${CMAKE_SOURCE_DIR}/external/tinyxml2
     ${CMAKE_SOURCE_DIR}/external/jsoncpp/include
+    ${CMAKE_SOURCE_DIR}/external/libevent/include
 )
 
 # 确保 my_app 在 pjsip 安装后才进行构建
@@ -62,6 +67,7 @@ target_link_libraries(my_app PRIVATE
     jthread-static
     tinyxml2
     jsoncpp_lib
+    event
     ${PJSIP_INSTALL_DIR}/lib/libpjsua-x86_64-unknown-linux-gnu.a
     ${PJSIP_INSTALL_DIR}/lib/libpjsip-ua-x86_64-unknown-linux-gnu.a
     ${PJSIP_INSTALL_DIR}/lib/libpjsip-simple-x86_64-unknown-linux-gnu.a
@@ -75,5 +81,3 @@ target_link_libraries(my_app PRIVATE
     ${PJSIP_INSTALL_DIR}/lib/libpj-x86_64-unknown-linux-gnu.a
     ${PJSIP_INSTALL_DIR}/lib/libpjsdp-x86_64-unknown-linux-gnu.a #手动粘贴，pjsip的makefile文件不会自动粘贴
 )
-
-
