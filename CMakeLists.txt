@@ -1,3 +1,4 @@
+
 cmake_minimum_required(VERSION 3.10)
 project(MyProject)
 
@@ -11,14 +12,17 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
 set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CMAKE_COMMAND} -E time")
 
-
-
 # 添加 gflags 和 glog
 add_subdirectory(external/gflags)
 add_subdirectory(external/glog)
-# 添加external目录
+
+# 添加 external 目录
 add_subdirectory(external/jrtplib3)
 add_subdirectory(external/jthread)
+
+# 添加 tinyxml2 和 jsoncpp
+add_subdirectory(external/tinyxml2)
+add_subdirectory(external/jsoncpp)
 
 # 安装路径
 set(PJSIP_INSTALL_DIR ${CMAKE_SOURCE_DIR}/install)
@@ -34,18 +38,18 @@ ExternalProject_Add(pjsip
   BUILD_IN_SOURCE 1
 )
 
-
-
 # 添加可执行文件
 add_executable(my_app app/main.cpp)
 target_include_directories(my_app PRIVATE ${PJSIP_INSTALL_DIR}/include)
 target_include_directories(my_app PRIVATE
     ${CMAKE_SOURCE_DIR}/external/jrtplib3/src
     ${CMAKE_SOURCE_DIR}/external/jthread/src
+    ${CMAKE_SOURCE_DIR}/external/tinyxml2
+    ${CMAKE_SOURCE_DIR}/external/jsoncpp/include
 )
 
 # 确保 my_app 在 pjsip 安装后才进行构建
-add_dependencies(my_app pjsip jrtplib-static jthread-static)
+add_dependencies(my_app pjsip jrtplib-static jthread-static tinyxml2 jsoncpp_lib)
 
 # 包含和链接 pjsip 库
 target_link_directories(my_app PRIVATE ${PJSIP_INSTALL_DIR}/lib)
@@ -56,6 +60,8 @@ target_link_libraries(my_app PRIVATE
     glog
     jrtplib-static
     jthread-static
+    tinyxml2
+    jsoncpp_lib
     ${PJSIP_INSTALL_DIR}/lib/libpjsua-x86_64-unknown-linux-gnu.a
     ${PJSIP_INSTALL_DIR}/lib/libpjsip-ua-x86_64-unknown-linux-gnu.a
     ${PJSIP_INSTALL_DIR}/lib/libpjsip-simple-x86_64-unknown-linux-gnu.a
@@ -69,6 +75,5 @@ target_link_libraries(my_app PRIVATE
     ${PJSIP_INSTALL_DIR}/lib/libpj-x86_64-unknown-linux-gnu.a
     ${PJSIP_INSTALL_DIR}/lib/libpjsdp-x86_64-unknown-linux-gnu.a #手动粘贴，pjsip的makefile文件不会自动粘贴
 )
-
 
 

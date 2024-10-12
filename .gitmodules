@@ -16,3 +16,9 @@
 [submodule "external/jthread"]
 	path = external/jthread
 	url = https://github.com/j0r1/JThread.git
+[submodule "external/tinyxml2"]
+	path = external/tinyxml2
+	url = https://github.com/leethomason/tinyxml2.git
+[submodule "external/jsoncpp"]
+	path = external/jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp.git
